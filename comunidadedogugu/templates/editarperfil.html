@@ -1,0 +1,123 @@
+{% extends 'perfil.html' %}
+
+{% block form_editar_perfil %}
+<hr>
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center mt-5 ms-5"><img
+                    class="rounded-3 mt-5 border border-3 border-dark" style="width: 150px; height: 100px; z-index:1" src="{{ foto_perfil }}"><span
+                    class="font-weight-bold">{{ current_user.username }}</span><span class="text-black-50">{{current_user.email}}</span><span> </span>
+            </div>
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="py-3">
+                <div class="d-flex justify-content-between align-items-center mb-4 ms-4">
+                    <h4 class="text-right">Configurações de Perfil</h4>
+                </div>
+                <div class="container px-4">
+                    <hr>
+                    <div class="row gx-5">
+                        <div class="col">
+                            <form method='POST' action="" class="rounded-5 mt-3 form-floating"
+                                  enctype="multipart/form-data">
+                                {{ form_editar_perfil.csrf_token }}
+                                <div class="shadow-lg p-4 rounded-5 bg-light">
+                                    <h2>Editar Perfil</h2>
+                                    <p></p>
+                                    <div class='form-group'>
+                                        {% if form_editar_perfil.username.errors %}
+                                        Nome De Usuário: {{ form_editar_perfil.username (class="form-control mt-1
+                                        is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for erro in form_editar_perfil.username.errors %}
+                                            {{ erro }}
+                                            {% endfor %}
+                                        </div>
+                                        {% else %}
+                                        <p> Nome de Usuário: {{ form_editar_perfil.username (class="form-control
+                                            mt-1") }}</p>
+                                        {% endif %}
+                                    </div>
+                                    <div class='form-group'>
+                                        {% if form_editar_perfil.email.errors %}
+                                        E-mail: {{ form_editar_perfil.email (class="form-control mt-1
+                                        is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for erro in form_editar_perfil.email.errors %}
+                                            {{ erro }}
+                                            {% endfor %}
+                                        </div>
+                                        {% else %}
+                                        <p> E-mail: {{ form_editar_perfil.email (class="form-control mt-1")
+                                            }}</p>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class='form-group'>
+                                        {% if form_editar_perfil.cidade.errors %}
+                                        Cidade: {{ form_editar_perfil.cidade (class="form-control mt-1
+                                        is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for erro in form_editar_perfil.cidade.errors %}
+                                            {{ erro }}
+                                            {% endfor %}
+                                        </div>
+                                        {% else %}
+                                        <p> Cidade: {{ form_editar_perfil.cidade (class="form-control mt-1")
+                                            }}</p>
+                                        {% endif %}
+                                    </div>
+                                    <div class='form-group'>
+                                        {% if form_editar_perfil.instagram.errors %}
+                                        Instagram: {{ form_editar_perfil.instagram (class="form-control mt-1
+                                        is-invalid") }}
+                                        <div class="invalid-feedback">
+                                            {% for erro in form_editar_perfil.instagram.errors %}
+                                            {{ erro }}
+                                            {% endfor %}
+                                        </div>
+                                        {% else %}
+                                        <p> Instagram: {{ form_editar_perfil.instagram (class="form-control mt-1")
+                                            }}</p>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <p>{{ form_editar_perfil.foto_perfil.label }}</p>
+                                        <p>{{ form_editar_perfil.foto_perfil (class='form-control-file') }}</p>
+                                        {% if form_editar_perfil.foto_perfil.errors %}
+                                        {% for erro in form_editar_perfil.foto_perfil.errors %}
+                                        <span class="text-danger">{{ erro }}</span><br>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+
+                                    <div>
+                                        {% for campo in form_editar_perfil %}
+                                        {% if 'interesse_' in campo.name %}
+                                        <div class="form-group" enctype="multipart/form-data">
+                                            {{ campo (class="form-check-input") }}
+                                            {{ campo.label (class="form-check-label") }}
+                                        </div>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
+
+                                    <center>{{ form_editar_perfil.botao_editar_perfil (class= "btn btn-outline-dark"
+                                        )}}
+                                    </center>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+
+{% endblock %}

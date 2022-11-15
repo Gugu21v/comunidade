@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block body %}
+<hr>
+<h1 class="container text-center color:orange" style="color:ORANGE">Comunidade do Gugu</h1>
+<hr>
+<h1 class="container text-center" style="color:DARK">Posts</h1>
+{% for post in posts %}
+<div class="mt-5 ms-5 mb-4 fundofoto rounded-3 container border border-dark">
+    <div class="row">
+        <div class="col col-4 p-3">
+            {% if post.autor.foto_perfil != 'default.jpg' %}
+                <img src="{{ url_for('static', filename='fotos_perfil/{}'.format(post.autor.foto_perfil)) }}"
+                 alt="Generic placeholder image"
+                 class="bd-placeholder-img rounded ms-4 mb-2 border border-dark border-2"
+                 style="width: 130px; height: 100px; z-index:1">
+                 <strong><p class="ms-4">{{ post.autor.username }}</p></strong>
+                {% if post.autor.interesses != "" %}
+                    {% for interesse in post.autor.interesses.split(';') %}
+                        <button type="button" class="btn btn-success mt-1 ms-1" disabled>{{ interesse }}</button>
+                    {% endfor %}
+                {% else %}
+                    <button type="button" class="btn btn-success mt-1 ms-1" disabled>Não Informado</button>
+                {% endif %}
+            {%else: %}
+                <img src="{{ url_for('static', filename='fotos_perfil/{}'.format(post.autor.foto_perfil)) }}"
+                 alt="Generic placeholder image"
+                 class="rounded-circle border border-white border-2 ms-4 img-fluid "
+                 style="width: 150px; z-index: 1">
+                 <strong><p class="ms-4 mt-2">{{ post.autor.username }}</p></strong>
+                {% if post.autor.interesses != "" %}
+                    {% for interesse in post.autor.interesses.split(';') %}
+                        <button type="button" class="btn btn-success mt-1 ms-1" disabled>{{ interesse }}</button>
+                    {% endfor %}
+                {% else %}
+                <button type="button" class="btn btn-success mt-1 ms-1" disabled>Não Informado</button>
+                {% endif %}
+            {% endif %}
+        </div>
+        <div class="col col-7 branco text-dark border border-dark mt-3 rounded-3 mb-3 p-3">
+            <a style="text-decoration: none; color: black" href="{{ url_for('exibir_post', post_id=post.id) }}"><h4>{{ post.titulo }}</h4></a>
+            <p>{{ post.corpo }}</p>
+        </div>
+        <strong class='container d-flex justify-content-end me-5 mb-2'>Publicado em {{ datetime.strftime(post.data_criacao, '%d/%m/%Y às %H:%M') }}</strong>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

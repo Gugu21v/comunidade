@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+
+{% block body %}
+<section class="h-100 gradient-custom-2">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-lg-9 col-xl-7">
+                <div class="card">
+                    <div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:200px;">
+                        <div class="ms-3 mt-5 d-flex flex-column" style="width: 150px;">
+                            {% if current_user.foto_perfil != 'default.jpg' %}
+                            <img src="{{ foto_perfil }}"
+                                 alt="Generic placeholder image"
+                                 class="bd-placeholder-img rounded mt-1 mb-3 ms-1 border border-white border-2"
+                                 width="150" height="100"
+                                 style="width: auto; z-index: 1">
+                            {% else %}
+                            <img src="{{ foto_perfil }}"
+                                 alt="Generic placeholder image"
+                                 class="rounded-circle border border-white border-2 img-fluid "
+                                 style="width: 150px; z-index: 1">
+                            {% endif %}
+                        </div>
+                        <div class="ms-3" style="margin-top: 130px;">
+                            <h5>{{ current_user.username }}</h5>
+                            <p>{{ current_user.cidade }}</p>
+                        </div>
+                    </div>
+                    <div class="p-4 text-black" style="background-color: #f8f9fa;">
+                        <a href="{{ url_for('editar_perfil') }}"
+                           class="btn btn-outline-dark btn-md btn-block center ms-3 mb-">Editar Perfil</a>
+                        <div class="p-3 text-black" style="background-color: #f8f9fa;">
+                            <div class="row">
+                                <div class="d-flex flex-row-reverse m-0 p-0">
+                                    <div class="d-flex justify-content-end text-center">
+                                        {% if "Não Informado" in current_user.interesses %}
+                                        <div class="d-flex justify-content-end text-center">
+                                            <div class="">
+                                                <p class="h5"> 0 </p>
+                                                <p class="small text-muted">Interesses</p>
+                                            </div>
+                                        </div>
+                                        {% elif current_user.interesses == "" %}
+                                        <div class="d-flex justify-content-end text-center">
+                                            <div class="">
+                                                <p class="h5"> 0 </p>
+                                                <p class="small text-muted">Interesses</p>
+                                            </div>
+                                        </div>
+                                        {% else %}
+                                        <div class="d-flex justify-content-end text-center">
+                                            <div class="">
+                                                <p class="h5"> {{ current_user.interesses.count(';') + 1 }} </p>
+                                                <p class="small text-muted">Interesses</p>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                        <div class="d-flex justify-content-end text-center ms-3">
+                                            <div class="">
+                                                <p class="h5"> {{ current_user.contar_posts() }} </p>
+                                                <p class="small text-muted">Posts</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body text-black">
+                                        <div class="mb-5">
+                                            <p class="lead fw-normal mb-1">Sobre</p>
+                                            <div class="mb-5" style="background-color: #f8f9fa;">
+                                                <p class="font-italic mb-1">Email: {{ current_user.email }}</p>
+                                                <p class="font-italic mb-1">Mora em {{ current_user.cidade }}</p>
+                                                <p class="font-italic mb-0">Instagram: {{ current_user.instagram }} </p>
+                                                Interesses:<br>
+                                                {% if current_user.interesses != "" %}
+                                                {% for interesse in current_user.interesses.split(';') %}
+                                                <button type="button" class="btn btn-success mt-2" disabled>{{ interesse
+                                                    }}
+                                                </button>
+                                                {% endfor %}
+                                                {% else %}
+                                                <button type="button" class="btn btn-success mt-2" disabled>Não
+                                                    Informado
+                                                </button>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="row g-2">
+                                        </div>
+                                        <div class="toast align-items-center" role="alert" aria-live="assertive"
+                                             aria-atomic="true">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% block form_editar_perfil %}
+{% endblock %}
+{% endblock %}
+
