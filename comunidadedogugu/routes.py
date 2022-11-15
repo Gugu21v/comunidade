@@ -13,7 +13,7 @@ from datetime import datetime
 def home():
     posts = Post.query.order_by(Post.id.desc())
     usuarios = Usuario.query.all()
-    return render_template("home.html", posts=posts, usuarios=usuarios, datetime=datetime)
+    return render_template("index.html", posts=posts, usuarios=usuarios, datetime=datetime)
 
 @app.route('/inicio')
 def inicio():
